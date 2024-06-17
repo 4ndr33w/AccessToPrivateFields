@@ -63,6 +63,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Infrastructure\Commands\Base\CommandBase.cs" />
+    <Compile Include="Infrastructure\Commands\UpdateWpfFieldsCommand.cs" />
     <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />

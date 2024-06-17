@@ -5,24 +5,55 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AccessToPrivateFields"
         xmlns:dataContext="clr-namespace:AccessToPrivateFields.ViewModels"
+        xmlns:commands="clr-namespace:AccessToPrivateFields.Infrastructure.Commands"
         mc:Ignorable="d"
+        x:Name="mainWindow"
         Title="MainWindow" Height="350" Width="700">
     <Window.DataContext>
         <dataContext:MainWindowViewModel/>
     </Window.DataContext>
+    <Window.Resources>
+        <commands:UpdateWpfFieldsCommand x:Key="updateButtonCommand"/>
+    </Window.Resources>
     <Grid>
         <StackPanel Orientation="Vertical">
             <Border BorderThickness="1" BorderBrush="Black" Margin="10" Padding="3">
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <DockPanel>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" DockPanel.Dock="Left">
                     <TextBlock Text="Example 1: System.Reflection.FieldInfo" Width="210" VerticalAlignment="Center"/>
                     <TextBlock Text="Result:" Width="45" VerticalAlignment="Center"/>
                     <Border BorderBrush="Black" BorderThickness="1">
-                        <TextBlock Text="{Binding Path=Example1Result, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Padding="10,0,10,0"/>
+                        <TextBlock Text="{Binding Path=Example1Result, UpdateSourceTrigger=PropertyChanged}" Padding="10,0,10,0"/>
                     </Border>
                     <TextBlock HorizontalAlignment="Left" Text=" "></TextBlock>
                     <TextBlock HorizontalAlignment="Left" Text="{Binding Example1TimeSpan}" Margin="5,0,5,0"></TextBlock>
                 </StackPanel>
+                    <Button DockPanel.Dock="Right" Width="100" Content="Set Filed Text"/>
+                </DockPanel>
             </Border>
+            <Border BorderThickness="1" BorderBrush="Black" Margin="10" Padding="3">
+                <DockPanel>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" DockPanel.Dock="Left">
+                        <TextBlock Text="Example 2: Nested Class" Width="210" VerticalAlignment="Center"/>
+                        <TextBlock Text="Result:" Width="45" VerticalAlignment="Center"/>
+                        <Border BorderBrush="Black" BorderThickness="1">
+                            <TextBlock Text="{Binding Path=Example2Result, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Padding="10,0,10,0"/>
+                        </Border>
+                        <TextBlock HorizontalAlignment="Left" Text=" "></TextBlock>
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding Example2TimeSpan}" Margin="5,0,5,0"></TextBlock>
+                    </StackPanel>
+                    <Button DockPanel.Dock="Right" Width="100" Content="Set Filed Text"/>
+                </DockPanel>
+            </Border>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Width="100" 
+                        Height="25" 
+                        Content="Update"
+                        Command="{StaticResource updateButtonCommand}"
+                        CommandParameter="{Binding ElementName=mainWindow}"
+                        Background="Transparent"/>
+                <!--Command="{StaticResource updateButtonCommand}"/>-->
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>
