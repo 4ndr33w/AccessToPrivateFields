@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,8 +13,9 @@ namespace AccessToPrivateFields.ViewModels
         public MainWindowViewModel() {/* UpdateMethod(); */}
         public void UpdateMethod()
         {
-            FieldInfoMethod();
-            NestedClassAccessMethod();
+            FieldInfoGetMethod();
+            NestedClassAccessGetMethod();
+            ExpressionTreesGetMethod();
         }
         #region поля для WPF
         #region Ex 1
@@ -30,12 +32,19 @@ namespace AccessToPrivateFields.ViewModels
         public string Example2Result { get => _example2Result; set => Set(ref _example2Result, value); }
         #endregion
 
+        #region Ex 3
+        private string _example3TimeSpan = "TimeSpan3";
+        public string Example3TimeSpan { get => _example3TimeSpan; set => Set(ref _example3TimeSpan, value); }
+        private string _example3Result = "sample3";
+        public string Example3Result { get => _example3Result; set => Set(ref _example3Result, value); }
+        #endregion
+
         #endregion
 
 
         #region Example 1: Field Info
 
-        private void FieldInfoMethod()
+        private void FieldInfoGetMethod()
         {
             var startTime = DateTime.Now;
 
@@ -59,7 +68,7 @@ namespace AccessToPrivateFields.ViewModels
 
         #region Example 2: Nested Class
 
-        private void NestedClassAccessMethod()
+        private void NestedClassAccessGetMethod()
         {
             var startTime = DateTime.Now;
             Models.ProjectModel _projectModel = new Models.ProjectModel();
@@ -70,6 +79,23 @@ namespace AccessToPrivateFields.ViewModels
                 .Milliseconds
                 .ToString() + " ms";
             
+        }
+        #endregion
+
+        #region Expression Trees
+
+        private void ExpressionTreesGetMethod()
+        {
+            var startTime = DateTime.Now;
+
+            ProjectModel _projectModel = new Models.ProjectModel();
+            ParameterExpression keeperArg = Expression.Parameter(typeof(ProjectModel), $"{_projectModel}"); // argument = ProjectModel _projectModel
+            Expression privateFieldAncesor = Expression.Field(keeperArg, "_privateField"); //_projectModel._privateField
+            var lambda = Expression.Lambda<Func<ProjectModel, string>>(privateFieldAncesor, keeperArg);
+            var func = lambda.Compile();
+            Example3Result = func(_projectModel);
+            var endTime = DateTime.Now;
+            Example3TimeSpan = (endTime - startTime).TotalMilliseconds.ToString();
         }
         #endregion
     }

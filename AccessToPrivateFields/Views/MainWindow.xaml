@@ -45,6 +45,20 @@
                     <Button DockPanel.Dock="Right" Width="100" Content="Set Filed Text"/>
                 </DockPanel>
             </Border>
+            <Border BorderThickness="1" BorderBrush="Black" Margin="10" Padding="3">
+                <DockPanel>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" DockPanel.Dock="Left">
+                        <TextBlock Text="Example 3: ExpressionTrees" Width="210" VerticalAlignment="Center"/>
+                        <TextBlock Text="Result:" Width="45" VerticalAlignment="Center"/>
+                        <Border BorderBrush="Black" BorderThickness="1">
+                            <TextBlock Text="{Binding Path=Example3Result, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Padding="10,0,10,0"/>
+                        </Border>
+                        <TextBlock HorizontalAlignment="Left" Text=" "></TextBlock>
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding Example3TimeSpan}" Margin="5,0,5,0"></TextBlock>
+                    </StackPanel>
+                    <Button DockPanel.Dock="Right" Width="100" Content="Set Filed Text"/>
+                </DockPanel>
+            </Border>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Width="100" 
                         Height="25" 
