@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AccessToPrivateFields.ViewModels.Base
 {
-    internal abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
+    internal abstract class ViewModelBase : INotifyPropertyChanged
     {
         public ViewModelBase() { }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -25,19 +20,6 @@ namespace AccessToPrivateFields.ViewModels.Base
             field = value;
             OnPropertyChanged(propertyName);
             return true;
-        }
-
-
-        public void Dispose()
-        {
-            this.Dispose(true);
-        }
-        private bool _disposed;
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposing || _disposed) return;
-            _disposed = true;
         }
     }
 }

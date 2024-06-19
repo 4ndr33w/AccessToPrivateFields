@@ -1,16 +1,12 @@
 ﻿using AccessToPrivateFields.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AccessToPrivateFields.ViewModels
 {
     internal class MainWindowViewModel : ViewModels.Base.ViewModelBase
     {
-        public MainWindowViewModel() {/* UpdateMethod(); */}
+        public MainWindowViewModel() { }
         public void UpdateMethod()
         {
             FieldInfoGetMethod();
@@ -18,29 +14,38 @@ namespace AccessToPrivateFields.ViewModels
             ExpressionTreesGetMethod();
         }
         #region поля для WPF
+
         #region Ex 1
-        private string _example1TimeSpan = "TimeSpan1";
-        public string Example1TimeSpan { get => _example1TimeSpan; set => Set(ref _example1TimeSpan, value); } 
+
         private string _example1Result = "sample1";
+        private string _example1TimeSpan = "TimeSpan1";
+
         public string Example1Result { get => _example1Result; set => Set(ref _example1Result, value); }
+        public string Example1TimeSpan { get => _example1TimeSpan; set => Set(ref _example1TimeSpan, value); }
+
         #endregion
 
         #region Ex 2
-        private string _example2TimeSpan = "TimeSpan2";
-        public string Example2TimeSpan { get => _example2TimeSpan; set => Set(ref _example2TimeSpan, value); }
+
         private string _example2Result = "sample2";
+        private string _example2TimeSpan = "TimeSpan2";
+
         public string Example2Result { get => _example2Result; set => Set(ref _example2Result, value); }
+        public string Example2TimeSpan { get => _example2TimeSpan; set => Set(ref _example2TimeSpan, value); }
+
         #endregion
 
         #region Ex 3
-        private string _example3TimeSpan = "TimeSpan3";
-        public string Example3TimeSpan { get => _example3TimeSpan; set => Set(ref _example3TimeSpan, value); }
+
         private string _example3Result = "sample3";
+        private string _example3TimeSpan = "TimeSpan3";
+
         public string Example3Result { get => _example3Result; set => Set(ref _example3Result, value); }
-        #endregion
+        public string Example3TimeSpan { get => _example3TimeSpan; set => Set(ref _example3TimeSpan, value); }
 
         #endregion
 
+        #endregion
 
         #region Example 1: Field Info
 
@@ -58,11 +63,10 @@ namespace AccessToPrivateFields.ViewModels
             {
                 result = (string)fieldInfo.GetValue(_projectModel);
             }
+
             Example1Result = result;
-            var EndTime = DateTime.Now;
-            var timeSpan = (EndTime - startTime).TotalMilliseconds;
-            
-            Example1TimeSpan = timeSpan.ToString() + " ms";
+            var endTime = DateTime.Now;
+            Example1TimeSpan = TimeSpanCaculating(startTime, endTime);
         }
         #endregion
 
@@ -75,15 +79,12 @@ namespace AccessToPrivateFields.ViewModels
             Models.ProjectModel.NestedClassToGetAccessToPrivateField _nestedClass = new ProjectModel.NestedClassToGetAccessToPrivateField(_projectModel);
             Example2Result = _nestedClass.GetPrivateFieldData();
             var endTime = DateTime.Now;
-            Example2TimeSpan = (endTime - startTime)
-                .Milliseconds
-                .ToString() + " ms";
-            
+            Example2TimeSpan = TimeSpanCaculating(startTime, endTime);
         }
+
         #endregion
 
-        #region Expression Trees
-
+        #region Example 2: Expression Trees
         private void ExpressionTreesGetMethod()
         {
             var startTime = DateTime.Now;
@@ -95,7 +96,19 @@ namespace AccessToPrivateFields.ViewModels
             var func = lambda.Compile();
             Example3Result = func(_projectModel);
             var endTime = DateTime.Now;
-            Example3TimeSpan = (endTime - startTime).TotalMilliseconds.ToString();
+            Example3TimeSpan = TimeSpanCaculating(startTime, endTime);
+        }
+
+        #endregion
+
+        #region TimeCalculating
+        private string TimeSpanCaculating(DateTime startTime, DateTime endTime)
+        {
+            string timeSpan = (endTime - startTime)
+                .TotalMilliseconds
+                .ToString() + " ms";
+
+            return timeSpan;
         }
         #endregion
     }

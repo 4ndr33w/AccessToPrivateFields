@@ -8,7 +8,8 @@
         xmlns:commands="clr-namespace:AccessToPrivateFields.Infrastructure.Commands"
         mc:Ignorable="d"
         x:Name="mainWindow"
-        Title="MainWindow" Height="350" Width="700">
+        WindowStartupLocation="CenterScreen"
+        Title="MainWindow" Height="230" Width="500">
     <Window.DataContext>
         <dataContext:MainWindowViewModel/>
     </Window.DataContext>
@@ -28,7 +29,6 @@
                     <TextBlock HorizontalAlignment="Left" Text=" "></TextBlock>
                     <TextBlock HorizontalAlignment="Left" Text="{Binding Example1TimeSpan}" Margin="5,0,5,0"></TextBlock>
                 </StackPanel>
-                    <Button DockPanel.Dock="Right" Width="100" Content="Set Filed Text"/>
                 </DockPanel>
             </Border>
             <Border BorderThickness="1" BorderBrush="Black" Margin="10" Padding="3">
@@ -42,7 +42,6 @@
                         <TextBlock HorizontalAlignment="Left" Text=" "></TextBlock>
                         <TextBlock HorizontalAlignment="Left" Text="{Binding Example2TimeSpan}" Margin="5,0,5,0"></TextBlock>
                     </StackPanel>
-                    <Button DockPanel.Dock="Right" Width="100" Content="Set Filed Text"/>
                 </DockPanel>
             </Border>
             <Border BorderThickness="1" BorderBrush="Black" Margin="10" Padding="3">
@@ -56,7 +55,6 @@
                         <TextBlock HorizontalAlignment="Left" Text=" "></TextBlock>
                         <TextBlock HorizontalAlignment="Left" Text="{Binding Example3TimeSpan}" Margin="5,0,5,0"></TextBlock>
                     </StackPanel>
-                    <Button DockPanel.Dock="Right" Width="100" Content="Set Filed Text"/>
                 </DockPanel>
             </Border>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -66,7 +64,6 @@
                         Command="{StaticResource updateButtonCommand}"
                         CommandParameter="{Binding ElementName=mainWindow}"
                         Background="Transparent"/>
-                <!--Command="{StaticResource updateButtonCommand}"/>-->
             </StackPanel>
         </StackPanel>
     </Grid>

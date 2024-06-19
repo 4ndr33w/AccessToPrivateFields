@@ -1,0 +1,41 @@
+﻿<Window x:Class="AccessToPrivateFields.Views.SetPrivateFieldParameterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AccessToPrivateFields.Views"
+        xmlns:commands="clr-namespace:AccessToPrivateFields.Infrastructure.Commands.ChildWindowCommands"
+        xmlns:dataContext="clr-namespace:AccessToPrivateFields.ViewModels"
+        x:Name="setNewFieldDataWindow"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterOwner"
+        Title="Set New Field Data" 
+        Height="130" 
+        Width="300">
+    <Window.DataContext>
+        <dataContext:MainWindowViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <commands:CloseWindowCommand x:Key="closeWindowCommand"/>
+        <commands:SetPrivateFieldCommandByNestedClass x:Key="setFieldCommand"/>
+    </Window.Resources>
+    <Grid>
+        <StackPanel Margin="15">
+            <TextBox Width="250" Text="{Binding Example2Result}" x:Name="parameterTextBox"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                <Button Content="Cancel" 
+                        Padding="10,0,10,0" 
+                        Background="Transparent" 
+                        Margin="10,0,10,0"
+                        Command="{StaticResource closeWindowCommand}"
+                        CommandParameter="{Binding ElementName=setNewFieldDataWindow}"/>
+                <Button Content="OK" 
+                        Padding="20,0,20,0" 
+                        Margin="10,0,10,0" 
+                        Background="Transparent"
+                        Command="{StaticResource setFieldCommand}"
+                        CommandParameter="{Binding ElementName=setNewFieldDataWindow}"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
